@@ -29,12 +29,15 @@ function Circle(x, y, dx, dy, radius, color) {
         c.fillStyle = this.color
         c.fill();
 
+        // const dist = Math.hypot(this.x -200, this.y-400)
+        // if (dist < 500) {
+        //     c.beginPath()
+        //     c.moveTo(200, 400)
+        //     c.lineTo(this.x, this.y)
+        //     c.strokeStyle = "white"
+        //     c.stroke()
+        // }
 
-        c.beginPath()
-        c.moveTo(this.x, this.y)
-        c.lineTo(200,400)
-        c.strokeStyle = "white"
-        c.stroke()
     }
 
     this.update = function() {
@@ -51,11 +54,32 @@ function Circle(x, y, dx, dy, radius, color) {
 
 }
 
+function Line(x1,y1, x2, y2){
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+
+    this.draw = function() {
+        c.beginPath();
+        c.moveTo(this.x1, this.y1)
+        c.lineTo(this.x2, this.y2)
+        c.strokeStyle = "white"
+        c.stroke()
+    }
+
+    this.update = function() {
+        this.draw()
+    }
+
+}
+
+let lineArray = [];
 let circleArray = [];
 
 function init() {
     circleArray = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 100; i++) {
         var radius = (Math.random() + 1) * 2;
         var x = Math.random() * innerWidth;
         var y = Math.random() * innerHeight;
@@ -67,10 +91,27 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    c.clearRect(0, 0, innerWidth,  innerHeight);
+    c.fillStyle =  "rgba(20, 24, 82, 0.4)"
+    c.fillRect(0, 0, innerWidth,  innerHeight);
+
     circleArray.forEach((circle, index)=>{
         circle.update();
     })
+
+    circleArray.forEach((circle, index)=>{
+        circleArray.forEach((circle2, index2)=>{
+            if (index != index2 ) {
+                var dist = Math.hypot(circle.x - circle2.x, circle.y - circle2.y)
+                if (dist < 150) {
+                    lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y))
+                } else {lineArray.splice(index, 1)}    
+            }
+        })
+    })
+    lineArray.forEach((line)=>{
+        line.update()
+    })
+
 }
 
 init();
