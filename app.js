@@ -53,18 +53,18 @@ function Circle(x, y, dx, dy, radius, color) {
     }
 
 }
-
-function Line(x1,y1, x2, y2){
+function Line(x1,y1, x2, y2, a){
     this.x1 = x1;
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+    this.a = a;
 
     this.draw = function() {
         c.beginPath();
         c.moveTo(this.x1, this.y1)
         c.lineTo(this.x2, this.y2)
-        c.strokeStyle = "white"
+        c.strokeStyle = `rgba(255, 255, 255, ${this.a})`
         c.stroke()
     }
 
@@ -79,12 +79,12 @@ let circleArray = [];
 
 function init() {
     circleArray = [];
-    for (let i = 0; i < 100; i++) {
-        var radius = (Math.random() + 1) * 2;
+    for (let i = 0; i < 120; i++) {
+        var radius = (Math.random() + 0.2) * 3;
         var x = Math.random() * innerWidth;
         var y = Math.random() * innerHeight;
-        var dx = (Math.random() - 0.5) * 2
-        var dy = (Math.random() - 0.5) * 2
+        var dx = (Math.random() - 0.5) / 3
+        var dy = (Math.random() - 0.5) / 3
         circleArray.push(new Circle(x, y, dx, dy, radius, "white"))
     }
 }
@@ -97,14 +97,20 @@ function animate() {
     circleArray.forEach((circle, index)=>{
         circle.update();
     })
-
+    lineArray = []
     circleArray.forEach((circle, index)=>{
         circleArray.forEach((circle2, index2)=>{
             if (index != index2 ) {
                 var dist = Math.hypot(circle.x - circle2.x, circle.y - circle2.y)
-                if (dist < 150) {
-                    lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y))
-                } else {lineArray.splice(index, 1)}    
+                if (dist < 200) {
+                    if ( dist < 100) {
+                        a = 0.15
+                    }
+                    else if (100 < dist < 150) {
+                        a = 0.06
+                    } else {a = 0.04}
+                    lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y,a))
+                } else {}    
             }
         })
     })
