@@ -14,7 +14,6 @@ var c = canvas.getContext("2d");
 // }
 
 
-
 function Circle(x, y, dx, dy, radius, color) {
     this.x = x;
     this.y = y;
@@ -29,14 +28,6 @@ function Circle(x, y, dx, dy, radius, color) {
         c.fillStyle = this.color
         c.fill();
 
-        // const dist = Math.hypot(this.x -200, this.y-400)
-        // if (dist < 500) {
-        //     c.beginPath()
-        //     c.moveTo(200, 400)
-        //     c.lineTo(this.x, this.y)
-        //     c.strokeStyle = "white"
-        //     c.stroke()
-        // }
 
     }
 
@@ -60,6 +51,7 @@ function Line(x1,y1, x2, y2, a){
     this.y2 = y2;
     this.a = a;
 
+
     this.draw = function() {
         c.beginPath();
         c.moveTo(this.x1, this.y1)
@@ -69,6 +61,7 @@ function Line(x1,y1, x2, y2, a){
     }
 
     this.update = function() {
+
         this.draw()
     }
 
@@ -79,7 +72,7 @@ let circleArray = [];
 
 function init() {
     circleArray = [];
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < innerWidth / 5; i++) {
         var radius = (Math.random() + 0.2) * 3;
         var x = Math.random() * innerWidth;
         var y = Math.random() * innerHeight;
@@ -88,10 +81,19 @@ function init() {
         circleArray.push(new Circle(x, y, dx, dy, radius, "white"))
     }
 }
+addEventListener("click", (e)=>{
+    circleArray.push(new Circle(e.x, e.y, (Math.random() - 0.5) / 3, (Math.random() - 0.5) / 3, Math.random() * 2.5, "white"))
+})
+
+// if (newCircle == true) {
+//     circleArray.push(new Circle(e.x, e.y, (Math.random() - 0.5) / 3, (Math.random() - 0.5) / 3, (Math.random() + 0.2) * 3), "white")    
+//     newCircle = false;
+// }
+
 
 function animate() {
     requestAnimationFrame(animate);
-    c.fillStyle =  "rgba(20, 24, 82, 0.4)"
+    c.fillStyle =  "rgba(19, 24, 98, 0.9)"
     c.fillRect(0, 0, innerWidth,  innerHeight);
 
     circleArray.forEach((circle, index)=>{
@@ -102,14 +104,14 @@ function animate() {
         circleArray.forEach((circle2, index2)=>{
             if (index != index2 ) {
                 var dist = Math.hypot(circle.x - circle2.x, circle.y - circle2.y)
-                if (dist < 200) {
-                    if ( dist < 100) {
-                        a = 0.15
-                    }
-                    else if (100 < dist < 150) {
-                        a = 0.06
-                    } else {a = 0.04}
-                    lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y,a))
+                if (dist < 140) {
+                    if (dist < 50) {
+                        a = 0.07
+                    }else if(50 < dist < 90) { 
+                        a = 0.03
+                    } else { a = 0.005}
+
+                    lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y, a))
                 } else {}    
             }
         })
