@@ -14,7 +14,7 @@ let minDist;
 
 //clicking with mouse creates new stars
 addEventListener("click", (e)=>{
-    circleArray.push(new Circle(e.x, e.y, (Math.random() - 0.5) / 3, (Math.random() - 0.5) / 3, Math.random() * 2.5, "white"))
+    circleArray.push(new Circle(e.x, e.y, (Math.random() - 0.5), (Math.random() - 0.5), (Math.random() + 0.2) * 4, "white"))
 })
 addEventListener("mousemove", (e)=>{
     mouse.x = e.x;
@@ -61,7 +61,6 @@ function Circle(x, y, dx, dy, radius, color) {
                 } else {this.y -= moveAway}
             }
         }
-
         this.draw();
     }
 }
@@ -89,12 +88,12 @@ function Line(x1,y1, x2, y2, a){
 //creating the starts at the beggining
 function init() {
     circleArray = [];
-    for (let i = 0; i < innerWidth / 5; i++) {
-        var radius = (Math.random() + 0.2) * 3;
+    for (let i = 0; i < innerWidth / 4; i++) {
+        var radius = (Math.random() + 0.2) * 4;
         var x = Math.random() * innerWidth;
         var y = Math.random() * innerHeight;
-        var dx = (Math.random() - 0.5) / 3
-        var dy = (Math.random() - 0.5) / 3
+        var dx = (Math.random() - 0.5)  
+        var dy = (Math.random() - 0.5) 
         circleArray.push(new Circle(x, y, dx, dy, radius, "white"))
     }
 }
@@ -102,7 +101,7 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate);
-    c.fillStyle =  "rgba(19, 24, 98, 0.9)"
+    c.fillStyle =  "rgba(2, 48, 71, 0.6)"
     c.fillRect(0, 0, innerWidth,  innerHeight);
 
     circleArray.forEach((circle, index)=>{
@@ -116,11 +115,11 @@ function animate() {
                 var dist = Math.hypot(circle.x - circle2.x, circle.y - circle2.y)
                 //make closer stars to have higher opacity
                 if (dist < 140) {
-                    if (dist < 50) {
-                        a = 0.1
-                    }else if(50 < dist < 90) { 
-                        a = 0.05
-                    } else { a = 0.005}
+                    if (dist < 90) {
+                        a = (2 / dist) * (3/2)
+                    }else if(90 < dist < 120) { 
+                       a = 1 / dist
+                    }
 
                     lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y, a))
                 } else {}    
