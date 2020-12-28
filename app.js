@@ -49,22 +49,19 @@ function Circle(x, y, dx, dy, radius, color) {
         //stars moving away from mouse
         const distMouse = Math.hypot(mouse.x - this.x, mouse.y - this.y)
         minDist = 100;
-        if (distMouse < minDist) {
-            if ((mouse.x - this.x) < 0) {
-                this.x =  this.x + (minDist - distMouse)
+        var moveAway  = minDist  - distMouse
+        //dont let starts to leave the screen
+        if (mouse.y + minDist < innerHeight && mouse.y - minDist > 0 && mouse.x + minDist < innerWidth && mouse.x - minDist > 0) {
+            if (distMouse < minDist) {
+                if ((mouse.x - this.x) < 0) {
+                    this.x += moveAway
+                } else {this.x -= moveAway}
+                if (mouse.y - this.y < 0) {
+                    this.y += moveAway
+                } else {this.y -= moveAway}
             }
-            else if (mouse.x - this.x > 0) {
-                this.x = this.x - (minDist - distMouse)
-            }
-            if (mouse.y - this.y < 0) {
-                this.y = this.y + (minDist - distMouse)
-            }
-            else if (mouse.y - this.y > 0) {
-                this.y = this.y - (minDist - distMouse)
-            }
-            // this.x = 1.1 * this.x
-            // this.y = 1.1 * this.y 
         }
+
         this.draw();
     }
 }
