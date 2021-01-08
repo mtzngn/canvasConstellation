@@ -84,7 +84,6 @@ function Line(x1,y1, x2, y2, a){
     }
 }
 
-
 //creating the starts at the beggining
 function init() {
     circleArray = [];
@@ -98,10 +97,9 @@ function init() {
     }
 }
 
-
 function animate() {
     requestAnimationFrame(animate);
-    c.fillStyle =  "rgba(2, 48, 71, 0.6)"
+    c.fillStyle =  "rgba(2, 48, 71, 0.9)"
     c.fillRect(0, 0, innerWidth,  innerHeight);
 
     circleArray.forEach((circle, index)=>{
@@ -116,11 +114,10 @@ function animate() {
                 //make closer stars to have higher opacity
                 if (dist < 140) {
                     if (dist < 90) {
-                        a = (2 / dist) * (3/2)
+                        a = (5 / dist) 
                     }else if(90 < dist < 120) { 
                        a = 1 / dist
                     }
-
                     lineArray.push(new Line(circle.x, circle.y, circle2.x, circle2.y, a))
                 } else {}    
             }
