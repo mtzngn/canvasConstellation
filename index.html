@@ -7,7 +7,22 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <canvas></canvas>    
+    <div id="settings">
+        <form>
+            <label for="bg-color">Bg Color:</label>
+            <input name="bg-color" type="color" id="bg-color">
+            <label for="p-color">Particle Color:</label>
+            <input name="p-color" type="color" id="p-color">
+            <label for="p-speed">Particle Speed:</label>
+            <input name="p-speed" type="range" id="p-speed">
+            <label for="p-number">Number of Particles:</label>
+            <input name="p-number" type="number" id="p-number">
+            <label for="p-size">Particle Size:</label>
+            <input name="p-size" type="number" id="p-size">
+        </form>
+        <button id="btn-apply">Apply</button>
+    </div>   
+    <canvas></canvas> 
     <script src="app.js"></script>
 </body>
 </html>

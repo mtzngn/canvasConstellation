@@ -3,7 +3,12 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 var c = canvas.getContext("2d");
-
+const bgColor = document.getElementById("bg-color")
+const pColor = document.getElementById("p-color")
+const pSpeed = document.getElementById("p-speed")
+const pnumber = document.getElementById("p-number")
+const pSize = document.getElementById("p-size")
+let BackgroundColor =  "rgba(2, 48, 71)";
 let lineArray = [];
 let circleArray = [];
 let mouse = {
@@ -11,6 +16,18 @@ let mouse = {
     y: undefined,
 }
 let minDist;
+
+const applyButton = document.getElementById("btn-apply")
+applyButton.addEventListener("click", ()=>{
+    if(pnumber.value == "" || pSize.value =="") {
+        alert("Input can't be empty!")
+    } else {
+        BackgroundColor = bgColor.value
+        init(pnumber.value, pSize.value, pSpeed.value / 10,pSpeed.value / 10, pColor.value);
+    }
+})
+
+
 
 //clicking with mouse creates new stars
 addEventListener("click", (e)=>{
@@ -85,21 +102,25 @@ function Line(x1,y1, x2, y2, a){
 }
 
 //creating the starts at the beggining
-function init() {
+function init(nOP, size, xSpeed, ySpeed, color ) {
     circleArray = [];
-    for (let i = 0; i < innerWidth / 4; i++) {
-        var radius = (Math.random() + 0.2) * 4;
-        var x = Math.random() * innerWidth;
-        var y = Math.random() * innerHeight;
-        var dx = (Math.random() - 0.5)  
-        var dy = (Math.random() - 0.5) 
-        circleArray.push(new Circle(x, y, dx, dy, radius, "white"))
+    for (let i = 0; i < nOP; i++) {
+        let radius = (Math.random() + 0.2) * size;
+        let x = Math.random() * innerWidth;
+        let y = Math.random() * innerHeight;
+        let dx = (Math.random() - 0.5) * xSpeed;  
+        let dy = (Math.random() - 0.5) * ySpeed;
+        circleArray.push(new Circle(x, y, dx, dy, radius, color))
     }
 }
 
+
+
+
 function animate() {
+
     requestAnimationFrame(animate);
-    c.fillStyle =  "rgba(2, 48, 71, 0.9)"
+    c.fillStyle =  BackgroundColor
     c.fillRect(0, 0, innerWidth,  innerHeight);
 
     circleArray.forEach((circle, index)=>{
@@ -128,6 +149,5 @@ function animate() {
     })
 
 }
-
-init();
+init(250, 4, 1, 1, "white");
 animate();
