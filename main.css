@@ -16,8 +16,9 @@ canvas {
     align-items: center;
     padding:4px;
     color:white;
-    background-color: blueviolet;
+    background-color: rgb(29, 53, 87, 0.7);
     font-size: small;
+    border-radius: 10px;
 }
 form {
     display: flex;
@@ -31,4 +32,38 @@ input {
 }
 #p-speed {
     width:40%
+}
+button {
+    margin-top: 5px;
+}
+
+
+@media(min-width:375px) {
+    #settings {
+        width:40%;
+    }
+}
+@media(min-width:768px) {
+    #settings {
+        width:25%;
+    }
+}
+@media(min-width:1024px) {
+    #settings {
+        width:15%;
+    }
+}
+@media(min-width:1440px) {
+    #settings {
+        width:15%;
+    }
+    input {
+        width:30%;
+    }
+    #p-speed {
+        width:50%
+    }
+    button {
+        margin-top: 15px;
+    }
 }
