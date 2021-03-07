@@ -56,10 +56,10 @@ function Circle(x, y, dx, dy, radius, color) {
     this.update = function() {
         //limit the movement with screen coordinates
         if (this.x > innerWidth - this.radius || this.x - this.radius < 0) {
-            this.dx = -dx;
+            this.dx = -this.dx;
         }
         if (this.y > innerHeight - this.radius || this.y - this.radius < 0) {
-            this.dy = -dy;
+            this.dy = -this.dy;
         }
         this.x += this.dx;
         this.y += this.dy;
@@ -106,8 +106,8 @@ function init(nOP, size, xSpeed, ySpeed, color ) {
     circleArray = [];
     for (let i = 0; i < nOP; i++) {
         let radius = (Math.random() + 0.2) * size;
-        let x = Math.random() * innerWidth;
-        let y = Math.random() * innerHeight;
+        let x = (Math.random()* (9 - 1) + 1) / 10 * (innerWidth );
+        let y = (Math.random()* (9 - 1) + 1) / 10 * (innerHeight );
         let dx = (Math.random() - 0.5) * xSpeed;  
         let dy = (Math.random() - 0.5) * ySpeed;
         circleArray.push(new Circle(x, y, dx, dy, radius, color))
